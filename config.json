@@ -1,0 +1,6 @@
+{
+    "model_name": "gpt2",
+    "max_length": 150,
+    "num_train_epochs": 3,
+    "batch_size": 4
+}
