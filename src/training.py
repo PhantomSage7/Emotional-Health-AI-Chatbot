@@ -1,6 +1,6 @@
 import pandas as pd
+from datasets import Dataset  # Import from datasets library to handle tokenized data
 from transformers import GPT2Tokenizer, GPT2LMHeadModel, Trainer, TrainingArguments
-from datasets import Dataset
 from utils import load_data, preprocess_data
 
 def train_model(train_data):
@@ -9,7 +9,7 @@ def train_model(train_data):
 
     # Tokenize the dataset
     def tokenize_function(examples):
-        return tokenizer(examples['text'], truncation=True, padding='max_length', max_length=512)
+        return tokenizer(examples['empathetic_dialogues'], truncation=True, padding='max_length', max_length=512)
 
     # Convert the DataFrame to a Dataset
     dataset = Dataset.from_pandas(train_data)
@@ -37,6 +37,7 @@ def train_model(train_data):
 
 if __name__ == "__main__":
     # Load and preprocess the training data
-    train_data = load_data('data/processed/train_data.csv')
+    data_path = 'data/raw/Dataset.csv'  # Correct relative path
+    train_data = pd.read_csv(data_path)  # Load the raw dataset
     train_data = preprocess_data(train_data)  # Optional preprocessing step
     train_model(train_data)
